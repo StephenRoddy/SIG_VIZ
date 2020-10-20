@@ -1,0 +1,14 @@
+{
+  "name": "sig_viz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "create-p5js-project": "^1.1.1"
+  }
+}
