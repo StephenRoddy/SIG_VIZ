@@ -19,8 +19,11 @@ function preload(){
 }
 
 function setup(){
+  frameRate(10); // Keep frameRate (and fft ins) low to save on overhead
   imageMode(CENTER);
   let cnv = createCanvas(1000,1000);
+  //image(lake,500,500);
+  //image(samhain,500,500);
   sound.loop();
   //sound.pause();
     // create a new Amplitude analyzer
@@ -29,18 +32,17 @@ function setup(){
   analyzer.setInput(sound);
 
 // Create new fft
-  fft = new p5.FFT();
+  fft = new p5.FFT(.8,16); //16 bins. Small fft. Smoothing factor of .8/default
   fft.setInput(sound);
 
   cnv.mouseClicked(togglePlay);
-
   sound.amp(0.3);
+
+
 }
 
 
 function draw(){
-  image(lake,500,500);
-  image(samhain,500,500);
 
   if (sound.isPlaying()) {
 
@@ -62,6 +64,7 @@ function gl_1c(){
   glitch.randomBytes((rmsScl)); // randomise bytes on basis of amplitude range output from 1 to 200
 
   glitch.buildImage();
+  tint(255, 127); // Display at half opacity
   image(glitch.image, width/2, height/2);
   console.log(rmsScl);
 }
@@ -79,23 +82,25 @@ function gl_2b(){
   //lowMid = fft.getEnergy("lowMid");
   mid = fft.getEnergy("mid");
 //  highMid = fft.getEnergy("highMid");
-  treble = fft.getEnergy("treble");
-
+  //treble = fft.getEnergy("treble");
 
   glitch2.resetBytes();
-  glitch2.replaceBytes(50, bass); // swap all decimal byte 100 for 104
+  //glitch2.replaceBytes(50, bass); // swap all decimal byte 100 for 104
 //  glitch2.replaceBytes(150, lowMid); // swap all decimal byte 100 for 104
-  glitch2.replaceBytes(200, mid); // swap all decimal byte 100 for 104
+  glitch2.replaceBytes(255-bass, mid); // swap all decimal byte 100 for 104
   //glitch2.replaceBytes(300, highMid); // swap all decimal byte 100 for 104
-  glitch2.replaceBytes(400, treble); // swap all decimal byte 100 for 104
+  glitch2.replaceBytes(5000+highMid, treble); // swap all decimal byte 100 for 104
 
   glitch2.buildImage();
+  tint(255, 33); // Display at low opacity
   image(glitch2.image, width/2, height/2);
 }
 
  function togglePlay() {
    if (sound.isPlaying()) {
      sound.pause();
+     image(lake,500,500);
+     image(samhain,500,500);
    } else {
      sound.loop();
    }
