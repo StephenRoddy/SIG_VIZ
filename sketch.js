@@ -2,17 +2,17 @@ let sound,samhain, sW, sH, lake, fft, glitch, glitch2,analyzer,glScl,glSclMod;
 
 function preload(){
   sound = loadSound('audio/SIGIL.mp3');
-  samhain = loadImage('/img/samhain.png');
-  lake = loadImage('/img/bckScl.png');
+  samhain = loadImage('img/samhain.png');
+  lake = loadImage('img/bckScl.png');
 
   glitch = new Glitch();
-  loadImage('/img/samhain.png', function(im){
+  loadImage('img/samhain.png', function(im){
     glitch.loadQuality(.25); // reduce quality
     glitch.loadImage(im);
   });
 
   glitch2 = new Glitch();
-  loadImage('/img/bckScl.png', function(im){
+  loadImage('img/bckScl.png', function(im){
         //glitch.loadType('jpg'); // complete type as processed
   glitch2.loadQuality(.25);
   glitch2.loadImage(im);
